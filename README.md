@@ -6,6 +6,7 @@
 ![ver](https://img.shields.io/pypi/pyversions/youtube.py)
 ![lang](https://img.shields.io/github/languages/top/youtube-py/youtube.py)
 ![status](https://img.shields.io/pypi/status/youtube.py)
+![ver](https://img.shields.io/pypi/v/youtube.py)
 
 # YouTube Python
 

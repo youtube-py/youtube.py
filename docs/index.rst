@@ -6,29 +6,27 @@ Youtube Python documentation
 
 .. image:: https://readthedocs.org/projects/youtube-python/badge/?version=latest
    :target: https://youtube-python.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
+
 
 .. image:: https://img.shields.io/github/license/youtube-py/youtube.py
    :target: https://github.com/youtube-py/youtube.py
-   :alt: Documentation Status
+
 
 .. image:: https://img.shields.io/github/languages/code-size/youtube-py/youtube.py
    :target: https://github.com/youtube-py/youtube.py
-   :alt: Documentation Status
+
 
 .. image:: https://img.shields.io/pypi/pyversions/youtube.py
    :target: https://pypi.org/project/youtube.py/
-   :alt: Documentation Status
 
 
 .. image:: https://img.shields.io/github/languages/top/youtube-py/youtube.py
    :target: https://github.com/youtube-py/youtube.py
-   :alt: Documentation Status
 
 
 .. image:: https://img.shields.io/pypi/status/youtube.py
    :target: https://pypi.org/project/youtube.py/
-   :alt: Documentation Status
+
 
 
 Current version: v\ |version|

@@ -4,7 +4,7 @@ youtube.py is really lite python liberary with fast downloader
 """
 
 __title__ = "youtube.py"
-__version__ = "1.0.3"
+__version__ = "1.0.5"
 __author__ = "Mayank Gupta"
 __license__ = "MIT License"
 __copyright__ = "Copyright 2020 YouTube.py (Mayank Gupta)"
