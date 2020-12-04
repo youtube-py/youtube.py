@@ -23,7 +23,7 @@ setup(
             "Source": "https://github.com/youtube-py/youtube.py",
         },
     classifiers=[
-        "Topic :: Software Development :: Libraries :: Python Modules"
+        "Topic :: Software Development :: Libraries :: Python Modules",
         'Programming Language :: Python :: Implementation',
         'Programming Language :: Python :: 3 :: Only',
         'Programming Language :: Python :: 3',
