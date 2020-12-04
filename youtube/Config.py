@@ -3,7 +3,6 @@
 youtube.py is really lite python liberary with fast downloader
 """
 
-
 __title__ = "youtube.py"
 __version__ = "1.0.3"
 __author__ = "Mayank Gupta"
