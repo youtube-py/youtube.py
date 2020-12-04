@@ -22,8 +22,7 @@ project = 'Youtube Python'
 copyright = '2020, Mayank Gupta'
 author = 'Mayank Gupta'
 
-# The full version, including alpha/beta/rc tags
-release = '1.0.2'
+
 
 
 # -- General configuration ---------------------------------------------------
@@ -73,7 +72,8 @@ html_static_path = ['_static']
 
 #Version
 version = __version__
-#Release
+
+# The full version, including alpha/beta/rc tags
 release = __version__
 
 
