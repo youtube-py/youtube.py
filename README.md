@@ -18,13 +18,13 @@ Youtube Python is best and powerful python module for developers internal use AP
 run this command on terminal.
 
 ```
-$ pip install youtube.py
+$ pip install -U youtube.py
 ```
 
 Have multipls versions of python?
 
 ```
-$ python3.x -m pip install youtube.py
+$ python3.x -m pip install -U youtube.py
 ```
 
 ## Install FFMPEG

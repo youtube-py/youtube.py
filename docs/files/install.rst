@@ -12,13 +12,13 @@ run this command on terminal.
 
 .. code-block:: bash
 
-	pip install youtube.py
+	pip install -U youtube.py
 
 Have multipls versions of python?
 
 .. code-block:: bash
 
-	python3.x -m pip install youtube.py
+	python3.x -m pip install -U youtube.py
 
 .. _installffmpeg:
 
