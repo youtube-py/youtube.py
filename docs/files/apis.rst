@@ -61,3 +61,10 @@ Download Class
 .. autoclass:: Download
    :members:
    :inherited-members:
+
+Search Class
+---------------
+
+.. autoclass:: Search
+   :members:
+   :inherited-members:

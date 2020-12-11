@@ -43,6 +43,7 @@ Features
 * Command line input available
 * Supports FFMPEG
 * Can parsec youtube video details
+* Youtube Search, Video, PlayList
 
 
 

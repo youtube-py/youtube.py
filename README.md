@@ -48,6 +48,7 @@ $ sudo apt install ffmpeg
 * Command line input available
 * Supports FFMPEG
 * Can parsec youtube video details
+* Youtube Search, Video, PlayList
 
 # Basic
 

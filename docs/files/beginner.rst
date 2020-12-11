@@ -131,6 +131,24 @@ Class PlayList
 
 ``p.downloadall(HIGH)`` will download full playlist in ``HIGH`` quality
 
+
+Class Search
+------------
+
+.. code-block:: python
+
+	>>> from youtube import Search
+	>>> s = Search("taylor swift - willow")
+	>>> s.videos
+	[{'vid': 'RsEZmictANA', 'name': 'taylor swift - willow (official music video)'}, {'vid': '7EvwIw4gIyk', 'name': 'Taylor Swift - willow (Official Lyric Video)'}, {'vid': 'zI4DS5GmQWE', 'name': 'Taylor Swift - dorothea (Official Lyric Video)'}, {'vid': 'hP6QpMeSG6s', 'name': 'Taylor Swift - marjorie (Official Lyric Video)'}, {'vid': 'wDw8RCwmcKg', 'name': 'Taylor Swift - Willow (Lyrics)'}, {'vid': 'IEPomqor2A8', 'name': 'Taylor Swift - no body, no crime (Official Lyric Video) ft. HAIM'}, {'vid': '-qQogoNwJdM', 'name': "New TAYLOR SWIFT?! 'Willow' - My First Watch/Reaction!"}, {'vid': 'Oi2Vw0n2EfM', 'name': 'Taylor Swift - willow | Video Explained (Analysis, Easter eggs And More)'}, {'vid': 'OEd32AL-exA', 'name': 'Taylor Swift - Willow - Guitar Lesson'}, {'vid': 'jepo9tm22ig', 'name': 'Taylor Swift - Willow Cover'}, {'vid': 'qPOw4p36OLc', 'name': 'Taylor Swift - willow | Piano Cover by Pianella Piano'}, {'vid': '2TgkjFVqdJ0', 'name': 'Taylor Swift - willow - Music Video - REACTION'}, {'vid': 'ThOVwAmmLOo', 'name': 'Taylor Swift - Willow (Lyrics)'}, {'vid': 'NLIacgCnwFA', 'name': 'Taylor Swift - Willow - Reaction/Review'}, {'vid': '7B_DjCNKgHU', 'name': 'Taylor Swift - willow (Lyrics)'}, {'vid': 'O6IayU4FPmI', 'name': "Vocal Coach Reacts to Taylor Swift 'Willow' Evermore"}, {'vid': 'ufozmQSSY7c', 'name': 'Taylor Swift - Willow Reaction'}, {'vid': '1PKgktWMzNY', 'name': 'Taylor Swift - willow | Piano Tutorial'}, {'vid': '0ldUWIRURuw', 'name': 'taylor swift - willow - Piano Karaoke Instrumental Cover with Lyrics'}, {'vid': 'SqX8vbkG5_Q', 'name': 'Taylor Swift - willow (Piano Tutorial Easy)'}]
+	>>> s.first
+	<Class Video VID=RsEZmictANA PROXY=None ID=1 NAME=taylor swift - willow (official music video) 0x7f15a34c5a90>
+	>>> 
+
+
+
+
+
 How to get all title from playlist videos
 ------------------------------------------
 
@@ -163,3 +181,17 @@ A sample code to get description from all playlist video
 
 	for n in p.get_dict: # This will return the Video class object since we used process=True
 		print(n.description,end="\n\n") # This will print the description
+
+
+How to get videos search query
+-------------------------------
+
+Sample code to get videos by search
+
+.. code-block:: python
+
+	from youtube import Search
+
+	r = Search("taylor swift - willow")
+
+	print(r.get_dict)
