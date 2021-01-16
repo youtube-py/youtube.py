@@ -64,12 +64,14 @@ class Download(object):
 			# Data for process bar
 			# gg= bytes downloaded, size total size of file,
 			# when is bool vaule to start and stop the process bar
-			self.size = int(self.header["content-length"]) 
+			self.size = int(self.header["content-length"])
+
 			self.gg = 0 # download bytes
 			self.when = True
 
 			#get filename
 			name = self.getfilename()
+
 			logg.debug(f'Filename: {name}, Filesize: {self.size}')
 
 			# Create ranges for downloading chunks in parts
@@ -81,6 +83,7 @@ class Download(object):
 				req=self.gen_req(host,url,{"range":f"bytes={m}"})
 				threads.append(threading.Thread(target=self.down, args=(protocol, host, req, m, str(n))))
 				# break
+
 			if self.status:threading.Thread(target=self.run).start()
 			for n in threads:n.start()
 			for n in threads:n.join()
@@ -142,6 +145,32 @@ class Download(object):
 			p=int(int(self.gg)*50/int(self.size))
 			if self.status:print("Process: [{}] {}% Complete {:<10}".format("█"*p+"-"*(50-p), p*100/50,"0.0 Kb/s"))
 
+			# Return the file name
+			return name
+
+		elif check[0] == "2" :
+			name = self.getfilename()
+			req=self.gen_req(host,url)
+			sock=self.connect(protocol,host)
+			sock.sendall(req)
+			data=sock.recv(self.chunk)
+			header,image=self.hparsec(data)
+			f = open(name,"wb")
+			f.write(image)
+
+			if self.status:
+				logg.debug("We can't run status bar for this, No content-length found")
+
+			logg.debug(f'Filename: {name}, Filesize: Unknown')
+
+			while True:
+				try:
+					data = sock.recv(self.chunk)
+					if not data:break
+					f.write(data)
+				except socket.timeout:
+					break
+					
 			# Return the file name
 			return name
 		else:
@@ -220,7 +249,7 @@ class Download(object):
 				else:
 					dd=self.header["content-type"].split("/")[1].split("+")[0]
 					finalname = f'{self.dire}/{randint(10,99)}{int(time())}.{dd}'
-			finalname = f'{self.dire}/{randint(10,99)}{self.name}'
+			else:finalname = f'{self.dire}/{randint(10,99)}{self.name}'
 		else:
 			if not self.name:
 				if self.tmpname:
@@ -228,7 +257,7 @@ class Download(object):
 				else:
 					dd=self.header["content-type"].split("/")[1].split("+")[0]
 					finalname = f'{randint(10,99)}{int(time())}.{dd}'
-			finalname = f'{randint(10,99)}{self.name}'
+			else:finalname = f'{randint(10,99)}{self.name}'
 
 		for n in finalname:
 			if n not in '\\ /:*?"<>|':
@@ -236,22 +265,25 @@ class Download(object):
 				
 		return name
 
-	def check_multi(self, protocol:str, url:str, host:str) -> str:
+	def check_multi(self, protocol:str, url:str, host:str) -> Tuple:
 		req=self.gen_req(host,url)
 		sock=self.connect(protocol,host)
 		sock.sendall(req)
 		data=sock.recv(self.chunk)
 		self.header,image=self.hparsec(data)
-		if int(self.header["status"]) is not 200:
-			try:
-				sock.close()
-				name = self._Download(self.header["location"], dire=self.dire, name=self.name, status=self.status, chunk=self.chunk, connection=self.connection)
-				return "2",name
-			except Exception as err:
-				print(f"Error: {err}")
-				print("We cant download from this URL Contact Admin with URL OR can't save with this file name")
-				sock.close()
-				sys.exit(1)
+		if "content-length" in self.header.keys():
+			if int(self.header["status"]) is not 200:
+				try:
+					sock.close()
+					name = self._Download(self.header["location"], dire=self.dire, name=self.name, status=self.status, chunk=self.chunk, connection=self.connection)
+					return "2",name
+				except Exception as err:
+					print(f"Error: {err}")
+					print("We cant download from this URL Contact Admin with URL OR can't save with this file name")
+					sock.close()
+					sys.exit(1)
+
+		else: return "2",""
 
 		if "accept-ranges" in self.header.keys():
 			return "0",""
@@ -280,14 +312,16 @@ class Download(object):
 		store =  data[len(header)+4:]
 		html = data[len(header)+4:]
 		header=header.decode().split("\r\n")
+
 		out={}
-		out["status"]=header[0].split()[1]
 		for n in header[1:]:
 			temp=n.split(":")
 			value=""
 			for n in temp[1:]:
 				value+=n+":"
 			out[temp[0].lower()]=value[1:len(value)-1]
+		out["status"]=header[0].split()[1]
+
 		return out,store
 
 	def gen_req(self, host:str, url:str, header:Dict[str,str] = {}) -> bytes:
