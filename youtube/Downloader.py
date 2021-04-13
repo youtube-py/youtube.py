@@ -193,7 +193,7 @@ class Download(object):
 
 	def down(self, protocol:str, host:str, req:bytes, range:list, id:str="") -> None:
 		f = tempfile.TemporaryFile()
-		if id is not "":self.files[int(id)] = f
+		if id != "":self.files[int(id)] = f
 		sock=self.connect(protocol,host)
 		diff = self.rangediff(range)
 		sock.settimeout(5)
@@ -272,7 +272,7 @@ class Download(object):
 		data=sock.recv(self.chunk)
 		self.header,image=self.hparsec(data)
 		if "content-length" in self.header.keys():
-			if int(self.header["status"]) is not 200:
+			if int(self.header["status"]) != 200:
 				try:
 					sock.close()
 					name = self._Download(self.header["location"], dire=self.dire, name=self.name, status=self.status, chunk=self.chunk, connection=self.connection)
