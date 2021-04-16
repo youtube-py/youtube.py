@@ -33,7 +33,7 @@ setup(
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "License :: OSI Approved :: MIT License",
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         'Topic :: System :: Networking',
         'Topic :: Internet :: WWW/HTTP',
         "Topic :: Multimedia :: Video",

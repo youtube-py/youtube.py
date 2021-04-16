@@ -2,8 +2,8 @@
 import sys
 sys.path.insert(0,'..')
 
-import beta as youtube
-from beta import Search
+import youtube as youtube
+from youtube import Search
 
 r = Search("a kermit song")
 
