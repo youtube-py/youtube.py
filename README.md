@@ -1,7 +1,6 @@
 [![banner](https://github.com/youtube-py/youtube.py/raw/master/img/header.png)](https://youtube-python.mayankfawkes.xyz/)
 
 ![rtd](https://readthedocs.org/projects/youtube-python/badge/?version=latest)
-![license](https://img.shields.io/github/license/youtube-py/youtube.py)
 ![size](https://img.shields.io/github/languages/code-size/youtube-py/youtube.py)
 ![ver](https://img.shields.io/pypi/pyversions/youtube.py)
 ![lang](https://img.shields.io/github/languages/top/youtube-py/youtube.py)
