@@ -12,7 +12,7 @@ from .Connection import HTTP
 from re import compile, findall
 from urllib.parse import unquote
 import json, logging
-from .Error import (RegexError, VideoInfo, GeoBlockingError, ParsecError)
+from .Error import (RegexError, VideoInfo, GeoBlockingError, ParsecError, GoogleReCaptchaError)
 from .Config import (__issues__,__github__)
 
 logg = logging.getLogger(__name__)
@@ -31,7 +31,11 @@ def Get_js(req:HTTP,vid:str) -> Tuple[str, str]:
 		src=findall(match,data)[0]
 	except:
 		match=compile(r'jsUrl":"(.*?)"')
-		src=findall(match,data)[0]
+		url = findall(match,data)
+		if url:
+			src = url[0]
+		else:
+			raise GoogleReCaptchaError()
 	if src:
 		return "https://www.youtube.com"+src, data
 		logg.debug("Successfully got raw js <player_ias/base.js>")

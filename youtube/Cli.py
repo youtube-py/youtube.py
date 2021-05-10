@@ -1,3 +1,8 @@
+import sys
+
+if __name__ == '__main__':
+	sys.path.insert(0,'..')
+
 import logging
 import argparse
 import re
@@ -11,6 +16,8 @@ class main:
 		self.args = self.process_args()
 
 		self.url = self.check_url(self.args.url)
+
+		self.conn = self.args.connections
 
 		if "playlist" in self.url:
 			self.PlayList = True
@@ -72,17 +79,17 @@ class main:
 				print(f'Downloading: {n}')
 
 			if quality == 0:
-				name = Video(n).streams.ffhigh.download(dire=self.output, status=True)
+				name = Video(n).streams.ffhigh.download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 
 			elif quality == 1:
-				name = Video(n).streams.ffmid.download(dire=self.output, status=True)
+				name = Video(n).streams.ffmid.download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 			
 			else:
-				name = Video(n).streams.fflow.download(dire=self.output, status=True)
+				name = Video(n).streams.fflow.download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 
@@ -94,17 +101,17 @@ class main:
 				print(f'Downloading: {n}')
 
 			if quality == 0:
-				name = Video(n).streams.get_both.high().download(dire=self.output, status=True)
+				name = Video(n).streams.get_both.high().download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 
 			elif quality == 1:
-				name = Video(n).streams.get_both.mid().download(dire=self.output, status=True)
+				name = Video(n).streams.get_both.mid().download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 			
 			else:
-				name = Video(n).streams.get_both.low().download(dire=self.output, status=True)
+				name = Video(n).streams.get_both.low().download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 
@@ -116,17 +123,17 @@ class main:
 				print(f'Downloading: {n}')
 
 			if quality == 0:
-				name = Video(n).streams.get_audios.high().download(dire=self.output, status=True)
+				name = Video(n).streams.get_audios.high().download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 
 			elif quality == 1:
-				name = Video(n).streams.get_audios.mid().download(dire=self.output, status=True)
+				name = Video(n).streams.get_audios.mid().download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 			
 			else:
-				name = Video(n).streams.get_audios.low().download(dire=self.output, status=True)
+				name = Video(n).streams.get_audios.low().download(dire=self.output, status=True, connection=self.conn)
 				if name:
 					print(f"{name} Downloaded")
 
@@ -138,7 +145,7 @@ class main:
 				print(f'Downloading: {n}')
 
 			streams = Video(n).streams
-			name = streams.ffresolution(resolution).download(dire=self.output, status=True)
+			name = streams.ffresolution(resolution).download(dire=self.output, status=True, connection=self.conn)
 			if name:
 				print(f"{name} Downloaded")
 
@@ -149,7 +156,7 @@ class main:
 			if self.PlayList:
 				print(f'Downloading: {n}')
 
-			name = Video(n).streams.get_itag(itag).download(dire=self.output, status=True)
+			name = Video(n).streams.get_itag(itag).download(dire=self.output, status=True, connection=self.conn)
 			if name:
 				print(f"{name} Downloaded")
 
@@ -177,8 +184,10 @@ class main:
 		parser.add_argument('url', help='Enter video or playlist url')
 		parser.add_argument('-o', '--output', type=str, help='Output location for downloading streams.')
 		parser.add_argument('-l', '--logs', action='store_true', help='To enable extra logs.')
-
-		group = parser.add_mutually_exclusive_group()
+		parser.add_argument('-c', '--connections', const=8, nargs="?", default=8, type=int, help='Number of connections in download.')
+		parser.add_argument('--version', action="version", version=f'Youtube.py version {__version__} ({__github__})',help='Check the current version of youtube.py')
+		
+		group = parser.add_mutually_exclusive_group(required=True)
 
 		group.add_argument('-ff', '--ffmpeg', const="HIGH", nargs="?", type=str, help='FFMPEG downloads audio/video both then copy in one file, Pass the quality type.')
 		group.add_argument('-v', '--video', const="HIGH", nargs="?", type=str, help='Downlaod video (only progressive), Pass quality.')
@@ -186,7 +195,6 @@ class main:
 		group.add_argument('-s', '--streams', action='store_true', help='This argument will list the all available streams.')
 		group.add_argument('-a', '--audio', const="HIGH", nargs="?", type=str, help='Download audio, Pass quality.')
 		group.add_argument('-r', '--resolution', const=720, nargs="?", type=int, help='Download stream with quality type, Pass video resolution.')
-		group.add_argument('--version', action="version", version=f'Youtube.py version {__version__} ({__github__})',help='Check the current version of youtube.py')
 		args = parser.parse_args()
 		return args
 

@@ -196,7 +196,7 @@ class Download(object):
 		if id != "":self.files[int(id)] = f
 		sock=self.connect(protocol,host)
 		diff = self.rangediff(range)
-		sock.settimeout(5)
+		sock.settimeout(15)
 		sock.sendall(req)
 		data=sock.recv(self.chunk)
 		header,image=self.hparsec(data)
@@ -211,7 +211,8 @@ class Download(object):
 				f.write(data)
 				self.gg += len(data)
 				local_gg =+len(data)
-				if local_gg >= diff: break
+				if local_gg >= diff:
+					break
 			except socket.timeout:
 				break
 
@@ -278,7 +279,7 @@ class Download(object):
 					name = self._Download(self.header["location"], dire=self.dire, name=self.name, status=self.status, chunk=self.chunk, connection=self.connection)
 					return "2",name
 				except Exception as err:
-					print(f"Error: {err}")
+					print(f"Error: {self.header['status']}")
 					print("We cant download from this URL Contact Admin with URL OR can't save with this file name")
 					sock.close()
 					sys.exit(1)
@@ -345,9 +346,9 @@ class Download(object):
 
 if __name__ == '__main__':
 	# link=input("Enter Url -->")
-	link='https://storge.pic2.me/download/origin/257714.jpeg'
-	# link="https://r2---sn-ci5gup-civl.googlevideo.com/videoplayback?expire=1606610611&ei=U5rCX9fZKImlwgPP0KOwDQ&ip=171.60.177.128&id=o-AOTEor8QB7nEzOV58ZY1GegCDzqGoCJFH4yqW6Scpeqh&itag=248&aitags=133%2C134%2C135%2C136%2C137%2C160%2C242%2C243%2C244%2C247%2C248%2C278&source=youtube&requiressl=yes&mh=DC&mm=31%2C29&mn=sn-ci5gup-civl%2Csn-ci5gup-cvh6&ms=au%2Crdu&mv=m&mvi=2&pcm2cms=yes&pl=20&gcr=in&initcwndbps=695000&vprv=1&mime=video%2Fwebm&ns=vUXVdwbvoJzjIECjxScz6IUF&gir=yes&clen=12295247&dur=193.680&lmt=1606586572289453&mt=1606588849&fvip=2&keepalive=yes&c=WEB&txp=5532432&n=y9n0dSPriQCxsQyupR2&sparams=expire%2Cei%2Cip%2Cid%2Caitags%2Csource%2Crequiressl%2Cgcr%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpcm2cms%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRgIhAPE6C_TL49N8jIqMp9hVgj9bqs8zY93wOjjW7ZONuFo2AiEA81M8BnT1W519Y90XZhYpaF0wmSMvFMSKNGhmggOcPdE%3D&sig=AOq0QJ8wRgIhAOAdoYf8jUSErCo7XlxjSb4ePQIYpS2IRzUaIW5_Fk0GAiEAgbqa68gBBkWUdml0tzts_dphR7JxQXSQ8C5AhQnV86s="
+	# link='https://storge.pic2.me/download/origin/257714.jpeg'
+	link="https://r1---sn-cnoa-cive.googlevideo.com/videoplayback?expire=1620579261&ei=Xb-XYI2VJ4ym1Aans7DwDw&ip=117.223.82.146&id=o-AFqRgtQS4OMPnxit7AMjqcXyPM0UswajM276SLhvP7uE&itag=250&source=youtube&requiressl=yes&mh=JP&mm=31%2C29&mn=sn-cnoa-cive%2Csn-cvh76nes&ms=au%2Crdu&mv=m&mvi=1&pl=22&initcwndbps=483750&vprv=1&mime=audio%2Fwebm&ns=jrlm7LOWoA-OCE--lu9Tjq0F&gir=yes&clen=186213948&dur=23997.321&lmt=1585553573314543&mt=1620557323&fvip=4&keepalive=yes&fexp=24001373%2C24007246&c=WEB&txp=5431432&n=uqYJ9ztW1v5Ju_v9uUe&sparams=expire%2Cei%2Cip%2Cid%2Citag%2Csource%2Crequiressl%2Cvprv%2Cmime%2Cns%2Cgir%2Cclen%2Cdur%2Clmt&sig=AOq0QJ8wRgIhAL1gDvY-1ZZmUvmAXDk5GYdwy6lvOrftJbGzpdMnXPEZAiEA-OHHfu0nrp8SdwTjhLnFeYdrepH2BC8Boga1Ja9sHm4%3D&lsparams=mh%2Cmm%2Cmn%2Cms%2Cmv%2Cmvi%2Cpl%2Cinitcwndbps&lsig=AG3C_xAwRAIgM75vfG2SlIWKjujB-J6KSmYXqaxxzCnF0OBWic0y-LgCIBARz3ayIG1Pir0GGVYl4DEVYIodRlF74nPOoCqxN3NB"
 	# link="http://www.macaronisoup.com/songs/mp3/LoobyLoo.mp3"
 	# link = "https://portswigger.net/burp/releases/download?product=community&version=2020.11.2&type=WindowsX64"
-	dd=Download(link ,name = "", status = True, connection = 8, chunk = 5120).start()
+	dd=Download(link ,name = "test.webm", status = True, connection = 8, chunk = 5120).start()
 	print(dd)

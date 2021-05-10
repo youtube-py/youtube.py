@@ -429,3 +429,15 @@ class Search:
 		if status:
 			logg.debug(f'Search completed and found {len(self.videos)} videos')
 
+	def __iter__(self):
+		if self.obj_videos:
+			return iter(self.obj_videos)
+		return iter(self.videos)
+
+	def __repr__(self):
+		return f"{self.videos}"
+
+	def __getitem__(self, i: Union[int, slice]) -> Union[Stream, List[Stream]]:
+		if self.obj_videos:
+			return self.obj_videos[i]
+		return self.videos[i]
