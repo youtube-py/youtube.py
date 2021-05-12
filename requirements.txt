@@ -9,7 +9,7 @@ filelock==3.0.12
 idna==2.10
 imagesize==1.2.0
 Jinja2==2.11.3
-MarkupSafe==1.1.1
+MarkupSafe==2.0.0
 packaging==20.9
 pipenv==2020.11.15
 Pygments==2.9.0
