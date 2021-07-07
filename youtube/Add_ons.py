@@ -73,6 +73,9 @@ def Get_vid_info_url(vid:str,whaturl:str) -> str:
 		"ps":"default",
 		"eurl":whaturl,
 		"hl":"en_US",
+		"html5": "1",
+                "c": "TVHTML5",
+                "cver": "6.20180913"
 	}
 	return "https://youtube.com/get_video_info?"+"&".join(f"{n}={m}" for n,m in params.items())
 	
@@ -92,6 +95,9 @@ def Get_r_vid_info_url(vid:str) -> str:
 		"video_id":vid,
 		"eurl":f"https://youtube.googleapis.com/v/{vid}",
 		"sts":"",
+		"html5": "1",
+                "c": "TVHTML5",
+                "cver": "6.20180913"
 	}
 	return "https://youtube.com/get_video_info?"+"&".join(f"{n}={m}" for n,m in params.items())
 
