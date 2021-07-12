@@ -261,7 +261,7 @@ def Search_results(http:HTTP, query:str, videos:List[Dict[str,str]],country:str)
 
 	html = http._GET(SEARCH_URL, params=PARAMS,headers=HEADERS).text.replace("\n","")
 	try:
-		match = compile(r'var ytInitialData = (.*?);')
+		match = compile(r'var ytInitialData = (.*?);</script>')
 		f = findall(match, html)[0]
 		f = json.loads(f)
 	except:
