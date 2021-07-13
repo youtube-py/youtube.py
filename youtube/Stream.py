@@ -190,7 +190,7 @@ class FFMPEG:
 		self.av = av
 	def __repr__(self):
 		return f"{self.av}"
-	def download(self,dire:str="", name:str="",status:bool=False,connection:int=8, chunk:int=5120) -> str:
+	def download(self,dire:str="", name:str="",status:bool=False,connection:int=8, chunk:int=5120, unique:bool=False) -> str:
 		'''
 		This will return bool value as video download convert status`
 		
@@ -204,6 +204,8 @@ class FFMPEG:
 			(optional) Pass number is connection to be create. **Default[8]**
 		:param int chunk: 
 			(optional) Pass the chunk/buffer size for accepting packets. **Default[5120]**
+		:param int unique:
+			(optional) Pass if you want unique prefix, **Default[False]**
 
 		:rtype: str
 		:returns: name of the file
@@ -213,7 +215,7 @@ class FFMPEG:
 		for n in self.av:
 			logg.debug(f"Downloading : {n.check('type')} : {n.format}: {n.check('qualityLabel')}")
 			if status:print(f"Downloading : {n.check('type')} : {n.format}: {n.check('qualityLabel')}")
-			nam = n.download(dire=dire, name=name , status=status, connection=connection, chunk=chunk)
+			nam = n.download(dire=dire, name=name , status=status, connection=connection, chunk=chunk, unique=unique)
 			names.append(f'{nam}')
 			logg.debug(f"{nam} Downloaded")
 		tmp=nam.split("/")

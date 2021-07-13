@@ -2,9 +2,8 @@
 """
 Here we have HTTP class for sending all requests
 """
-from typing import Union, Callable
 from typing import List, Tuple
-from typing import Dict, Type
+from typing import Dict
 from typing import Any, Optional
 from requests import get
 from requests import Response

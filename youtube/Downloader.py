@@ -33,12 +33,14 @@ class Download(object):
 		(optional) Pass number is connection to be create. **Default[8]**
 	:param int chunk: 
 		(optional) Pass the chunk/buffer size for accepting packets. **Default[5120]**
+	:param int unique:
+		(optional) Pass if you want unique prefix, **Default[False]**
 
 	:rtype: str
 	:returns: the file name
 
 	'''
-	def __init__(self,url:str,dire:str="",name:str="",status:bool=False,connection:int=8, chunk:int = 5120) -> None:
+	def __init__(self,url:str,dire:str="",name:str="",status:bool=False,connection:int=8, chunk:int = 5120, unique:bool=False) -> None:
 		self.name = name.replace(" ","_")
 		self.dire = dire
 		if self.dire:
@@ -49,6 +51,7 @@ class Download(object):
 		self.chunk = chunk
 		self.connection = connection
 		self.url = unquote(url)
+		self.unique = unique
 
 	def start(self) -> str:
 		'''
@@ -243,22 +246,23 @@ class Download(object):
 	def getfilename(self) -> str:
 		finalname = ""
 		name = ""
+		prefix = randint(10,99) if self.unique else ""
 		if self.dire:
 			if not self.name:
 				if self.tmpname:
-					finalname = f'{self.dire}/{randint(10,99)}{self.tmpname}'
+					finalname = f'{self.dire}/{prefix}{self.tmpname}'
 				else:
 					dd=self.header["content-type"].split("/")[1].split("+")[0]
-					finalname = f'{self.dire}/{randint(10,99)}{int(time())}.{dd}'
-			else:finalname = f'{self.dire}/{randint(10,99)}{self.name}'
+					finalname = f'{self.dire}/{prefix}{int(time())}.{dd}'
+			else:finalname = f'{self.dire}/{prefix}{self.name}'
 		else:
 			if not self.name:
 				if self.tmpname:
-					finalname = f'{randint(10,99)}{self.tmpname}'
+					finalname = f'{prefix}{self.tmpname}'
 				else:
 					dd=self.header["content-type"].split("/")[1].split("+")[0]
-					finalname = f'{randint(10,99)}{int(time())}.{dd}'
-			else:finalname = f'{randint(10,99)}{self.name}'
+					finalname = f'{prefix}{int(time())}.{dd}'
+			else:finalname = f'{prefix}{self.name}'
 
 		for n in finalname:
 			if n not in '\\ /:*?"<>|':
