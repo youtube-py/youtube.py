@@ -27,5 +27,5 @@ sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 urllib3==1.26.4
-virtualenv==20.7.0
+virtualenv==20.8.1
 virtualenv-clone==0.5.5
